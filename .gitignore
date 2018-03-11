@@ -1,0 +1,8 @@
+node_modules
+npm-debug.log
+.idea/
+.DS_Store
+docroot/vendor/
+docroot/sites/default
+docroot/modules/contrib/
+docroot/core/

@@ -1,0 +1,44 @@
+version: '3'
+services:
+  d8demodb:
+    image: percona:5.6
+    container_name: "headless-chrome-demo-db"
+    environment:
+      MYSQL_DATABASE: drupal
+      MYSQL_ROOT_PASSWORD: banana#123
+      MYSQL_USER: root
+      MYSQL_HOST: docker.for.mac.localhost
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+  d8demo:
+    container_name: "headless-chrome-demo-site"
+    depends_on:
+      - d8demodb
+    build: .
+    ports:
+      - "80:80"
+    links:
+      - d8demodb
+    volumes:
+      - /Users/uditverma/Sites/:/var/www/html/
+    environment:
+      - TERM=xterm
+    networks:
+      default:
+        aliases:
+          - d8.demo.local
+    restart: always
+  headless-chrome:
+    build: ./docker-utils/
+    container_name: "headless-chrome-demo-node"
+    volumes:
+      - /Users/uditverma/Sites/d8demo/docker-utils/nodejs/src/screenshots/:/usr/src/app/screenshots/
+    environment:
+      - TERM=xterm
+    ports:
+      - 9222:9222
+volumes:
+  db_data:
