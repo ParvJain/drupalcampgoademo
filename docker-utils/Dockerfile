@@ -14,7 +14,7 @@ RUN apt-get install -y --force-yes nodejs
 
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN apt-get install -y --force-yes fonts-liberation gconf-service libappindicator1 libgtk2.0-0 libxtst6 libasound2 libatk1.0-0 libcairo2 libcups2 libfontconfig1 libgconf-2-4 libnspr4 libnss3 libx11-xcb1 libxss1 xdg-utils xvfb
-RUN dpkg -i google-chrome*.deb
+RUN dpkg -i google-chrome-stable_current_amd64.deb
 
 EXPOSE 9222
 COPY ./supervisord/*.conf /etc/supervisor/conf.d/
